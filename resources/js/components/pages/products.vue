@@ -1,24 +1,33 @@
 <template>
     <div>
-        <div class="container-fluid hero-section d-flex align-content-center justify-content-center flex-wrap ml-auto">
-            <h2 class="title">Welcome to the OnlineShopper</h2>
-        </div>
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-3">
+                    <div class="row mb-3 mt-3 mr-2">
+                        <div class="form-inline mr-auto mb-3">
+                            <label class="font-weight-bold mb-2" for="formName">Search by name</label>
+                            <input id="formName" type="text" class="form-control" v-model="prodName">
+                        </div>
+                        <div class="form-inline mr-auto mb-3">
+                            <label class="font-weight-bold mb-2" for="formPrcRng">Filter by price </label>
+                            <input id="formPrcRng" type="range" class="custom-range" min="0" max="200" step="1" v-model="prodPrice">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
                     <div class="row">
-                        <div class="col-md-4" v-for="(product,index) in products" :key="index">
+                        <div class="col-md-4" v-for="(product,index) in products" :key="index" v-if="product.price<=Number(prodPrice)">
                             <router-link :to="{ path: '/products/'+product.product_id}">
                                 <div class="card mb-3 mt-3 product-card-rounded">
                                     <div class="row no-gutters">
                                         <div class="col">
                                             <div class="card-header excursion-header">
-                                                <img class="" width="100%" height="100%" :src="'/images/'+product.imageurl" :alt="product.name"/>
+                                                <img width="100%" height="100%" :src="'/images/'+product.imageurl" :alt="product.name"/>
                                             </div>
                                             <div class="card-footer product-footer">
                                                 <p class="px-3 pt-3 float-left product-name" v-html="product.name"></p>
                                                 <p class="px-3 py-1 float-left product-price">$ {{product.price}}</p>
-                                                <button class="btn btn-info float-right product-btn">Add to cart</button>
+                                                <!-- <button class="btn btn-info float-right product-btn">Add to cart</button> -->
                                             </div>
                                         </div>
                                     </div>
@@ -36,6 +45,8 @@
     export default {
         data(){
             return {
+                prodName:"",
+                prodPrice:99,
                 products : []
             }
         },
@@ -46,18 +57,6 @@
 </script>
 
 <style scoped>
-    .hero-section {
-        height: 30vh;
-        background: #ababab;
-        align-items: center;
-        margin-bottom: 20px;
-        margin-top: -20px;
-    }
-
-    .title {
-        font-size: 60px;
-        color: #ffffff;
-    }
 
     .product-card-rounded {
         border-top-left-radius: 5px;
