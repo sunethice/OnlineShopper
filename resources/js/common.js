@@ -1,6 +1,8 @@
 export default {
-    data:{
-        products:[]
+    data(){
+        return {
+            products:[]
+        }
     },
     methods:{
         apiCall: async (pMethod, pUrl, pData) => {

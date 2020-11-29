@@ -17,7 +17,7 @@ class ProductSeeder extends Seeder
     {
         //
         DB::insert(
-            'insert into products (name,description,color,weight,price,cost,stock,imageurl,created_at,updated_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            'insert into products (name,description,color,weight,price,cost,stock,imageurl,created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
             [
                 'Sleeveless Textured Tiered Maxi Dress',
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
@@ -27,11 +27,10 @@ class ProductSeeder extends Seeder
                 10.00,
                 25,
                 'Product01.jpg',
-                new DateTime(),
-                null
+                new DateTime()
             ]);
         DB::insert(
-            'insert into products (name,description,color,weight,price,cost,stock,imageurl,created_at,updated_at) values (?, ?, ?, ?, ?, ?, ?, ?. ?)',
+            'insert into products (name,description,color,weight,price,cost,stock,imageurl,created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
             [
                 'Short Sleeve Notch Neck Top',
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
@@ -41,8 +40,33 @@ class ProductSeeder extends Seeder
                 5.99,
                 25,
                 'Product02.jpg',
-                new DateTime(),
-                null
+                new DateTime()
+            ]);
+        DB::insert(
+            'insert into products (name,description,color,weight,price,cost,stock,imageurl,created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [
+                'Sleeveless Textured Tiered Maxi Dress',
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+                'Kumquat,black',
+                1.45,
+                35.00,
+                17.00,
+                40,
+                'Product01.jpg',
+                new DateTime()
+            ]);
+        DB::insert(
+            'insert into products (name,description,color,weight,price,cost,stock,imageurl,created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [
+                'Sleeveless Textured Tiered Maxi Dress',
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+                'Kumquat,black',
+                1.20,
+                25.00,
+                10.00,
+                25,
+                'Product02.jpg',
+                new DateTime()
             ]);
     }
 }
