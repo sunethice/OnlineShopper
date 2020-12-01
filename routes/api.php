@@ -2,7 +2,7 @@
 
 
 use App\Http\Controllers\ProductController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -16,20 +16,19 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::post('login', 'UserController@login');
-Route::post('register', 'UserController@register');
+Route::post('login', [AuthController::class, 'cpSignIn']);
+Route::post('register', [AuthController::class, 'cpSignUp']);
 Route::get('products', [ProductController::class, 'index']);
-Route::post('/upload-file', 'ProductController@uploadFile');
 Route::get('/products/{product}', [ProductController::class, 'show']);
 
 Route::group(['middleware' => 'auth:api'], function(){
-    Route::get('/users','UserController@index');
-    Route::get('users/{user}','UserController@show');
-    Route::patch('users/{user}','UserController@update');
-    Route::get('users/{user}/orders','UserController@showOrders');
-    Route::patch('products/{product}/units/add','ProductController@updateUnits');
-    Route::patch('orders/{order}/deliver','OrderController@deliverOrder');
-    Route::resource('/orders', 'OrderController');
-    Route::resource('/products', 'ProductController')->except(['index','show']);
+    // Route::get('/users','UserController@index');
+    // Route::get('users/{user}','UserController@show');
+    // Route::patch('users/{user}','UserController@update');
+    // Route::get('users/{user}/orders','UserController@showOrders');
+    // Route::patch('products/{product}/units/add','ProductController@updateUnits');
+    // Route::patch('orders/{order}/deliver','OrderController@deliverOrder');
+    // Route::resource('/orders', 'OrderController');
+    // Route::resource('/products', 'ProductController')->except(['index','show']);
 });
 

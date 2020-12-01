@@ -16,8 +16,8 @@
                 </div>
                 <div class="col-md-9">
                     <div class="row">
-                        <div class="col-md-4" v-for="(product,index) in products" :key="index" v-if="product.price<=Number(prodPrice)">
-                            <router-link :to="{ path: '/products/'+product.product_id}">
+                        <div class="col-md-4" v-for="(product,index) in items" :key="index" v-if="product.price<=Number(prodPrice)">
+                            <!-- <router-link :to="{ path: '/products/'+product.product_id}"> -->
                                 <div class="card mb-3 mt-3 product-card-rounded">
                                     <div class="row no-gutters">
                                         <div class="col">
@@ -27,12 +27,12 @@
                                             <div class="card-footer product-footer">
                                                 <p class="px-3 pt-3 float-left product-name" v-html="product.name"></p>
                                                 <p class="px-3 py-1 float-left product-price">$ {{product.price}}</p>
-                                                <!-- <button class="btn btn-info float-right product-btn">Add to cart</button> -->
+                                                <button class="btn btn-info float-right product-btn" @click="addItemToCart(product)">Add to cart</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </router-link>
+                            <!-- </router-link> -->
                         </div>
                     </div>
                 </div>
@@ -41,17 +41,30 @@
     </div>
 </template>
 
+
 <script type="text/javascript">
+    import { mapGetters, mapActions } from 'vuex';
     export default {
         data(){
             return {
                 prodName:"",
                 prodPrice:99,
-                products : []
+                // products : []
             }
         },
-        mounted(){
-            axios.get("api/products/").then(response => this.products = response.data)
+        computed: mapGetters({
+            items: 'allProducts'
+        }),
+        methods:{
+            addItemToCart(product){
+                this.$store.commit('ADD_TO_CART',product);
+            }
+        },
+        // methods: mapActions([
+        //     'addToCart'
+        // ]),
+        created(){
+            this.$store.dispatch("getProducts");
         }
     }
 </script>
