@@ -89,7 +89,6 @@ export default new Vuex.Store({
     getters,
     actions: {
         register({ commit }, user) {
-            console.log(user);
             return new Promise((resolve, reject) => {
                 axios({ url: "api/register", data: user, method: "POST" })
                     .then(resp => {
@@ -140,7 +139,6 @@ export default new Vuex.Store({
             });
         },
         getProducts(context) {
-            console.log("getProducts");
             axios.get("api/products/").then(response => {
                 context.commit(types.LIST_PRODUCTS, response.data);
             });

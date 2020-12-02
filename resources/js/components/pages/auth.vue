@@ -88,7 +88,7 @@
                 }
                 this.$store.dispatch('login',data)
                 .then(
-                    () => {console.log('then');this.$router.push('/products');}
+                    () => this.$router.push('/products')
                 )
                 .catch((err) => console.log(err));
             },
@@ -102,7 +102,7 @@
                 }
                 this.$store.dispatch('register',data)
                 .then(
-                    () => {console.log('then');this.$router.push('/products');}
+                    () => this.$router.push('/products')
                 )
                 .catch((err) => console.log(err));
             }
