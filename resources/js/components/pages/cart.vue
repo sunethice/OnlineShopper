@@ -11,16 +11,29 @@
           <td>Name</td>
           <td>Price</td>
           <td>Quantity</td>
+          <td>Remove</td>
         </tr>
       </thead>
       <tbody>
         <tr v-for="p in productList" :key="p.id">
             <td>{{ p.name }}</td>
             <td>${{ p.price }}</td>
-            <td>{{ p.quantity }}</td>
+            <td>
+                <div class="quantity-toggle">
+                    <button @click="removeItemFromCart(p)">&mdash;</button>
+                    <input class="quantityInp" type="text" v-model="p.quantity" readonly>
+                    <button @click="addItemToCart(p)">&#xff0b;</button>
+                </div>
+            </td>
+            <td>
+                <button type="button" class="btn btn-default" @click="deleteItem(p)" aria-label="Left Align">
+                    <span class="fa fa-trash-o fa-lg" aria-hidden="true"></span>
+                </button>
+            </td>
           </tr>
           <tr>
             <td><b>Total:</b></td>
+            <td></td>
             <td></td>
             <td><b>${{ total }}</b></td>
           </tr>
@@ -37,15 +50,30 @@ export default {
       productList: 'cartProducts'
     }),
     total () {
-      return this.productList.reduce((total, p) => {
-        return total + p.price * p.quantity
-      }, 0)
+        return this.productList.reduce((total, p) => {
+            return total + p.price * p.quantity
+        }, 0)
     }
   },
   methods: {
+    addItemToCart(product){
+        this.$store.commit('ADD_TO_CART',product);
+    },
+    removeItemFromCart(product){
+        this.$store.commit('REMOVE_FROM_CART',product);
+    },
+    deleteItem (product) {
+        this.$store.commit('DELETE_FROM_CART',product);
+    },
     checkout(){
       alert('Pay us $' + this.total)
     }
   }
 }
 </script>
+
+<style scoped>
+.quantityInp{
+    max-width: 50px;
+}
+</style>

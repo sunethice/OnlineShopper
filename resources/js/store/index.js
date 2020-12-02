@@ -52,6 +52,21 @@ const mutations = {
             record.quantity++;
         }
     },
+    [types.REMOVE_FROM_CART](state, { product_id }) {
+        const record = state.added.find(p => p.product_id === product_id);
+        if (record) {
+            record.quantity--;
+            if(record.quantity === 0){
+                state.added.splice(state.added.indexOf(record),1);
+            }
+        }
+    },
+    [types.DELETE_FROM_CART](state, { product_id }) {
+        const record = state.added.find(p => p.product_id === product_id);
+        if (record) {
+            state.added.splice(state.added.indexOf(record),1);
+        }
+    },
     [types.LIST_PRODUCTS](state, data) {
         state.productList = data;
     },
