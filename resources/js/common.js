@@ -17,6 +17,9 @@ export default {
             catch(e){
                 return e.response
             }
+        },
+        notEmptyObject(someObject){
+            return Object.keys(someObject).length
         }
     }
 };

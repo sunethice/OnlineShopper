@@ -5,6 +5,7 @@ import products from './components/pages/products';
 import cart from './components/pages/cart';
 import product from './components/pages/product';
 import auth from './components/pages/auth';
+import register from './components/pages/register';
 
 Vue.use(VueRouter);
 
@@ -24,6 +25,10 @@ const routes =[
     {
         path:'/auth',
         component: auth
+    },
+    {
+        path:'/register',
+        component: register
     },
     {
         path:'/cart',

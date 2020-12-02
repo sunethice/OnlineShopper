@@ -30,8 +30,9 @@ class AuthController extends Controller
                 }
                 $tokenObj->token->save();
                 return response([
-                    'access_token'=>$tokenObj->accessToken,
+                    'token'=>$tokenObj->accessToken,
                     // 'refresh_token'=>$tokenObj->refreshToken,
+                    'user'=>$mUser,
                     'token_type'=>'Bearer',
                     'expires_at'=>Carbon::parse($tokenObj->token->expires_at)->toDateTimeString()
                 ],200);
@@ -53,10 +54,10 @@ class AuthController extends Controller
                 'required',
                 'string',
                 'min:8',
-                // 'regex:/[a-z]/',
-                // 'regex:/[A-Z]/',
-                // 'regex:/[0-9]/',
-                // 'regex:/[@$!%*#?&]/',
+                // 'regex:/[a-z]/',      // at least one lowercase letter
+                // 'regex:/[A-Z]/',      // at least one uppercase letter
+                // 'regex:/[0-9]/',      // at least one digit
+                // 'regex:/[@$!%*#?&]/', // a special character
                 'confirmed'
             ],
             'password_confirmation' => 'same:password',
@@ -64,14 +65,21 @@ class AuthController extends Controller
         ]);
         if($validator->fails()){
             return response([
-                'errors' => $validator->failed()
+                'errors' => $validator->errors()->all()
             ],422);
         }
         $request['password'] = Hash::make($request['password']);
         $request['rememberToken'] = Str::random(10);
         $mUser = User::create($request->toArray());
-        $token = $mUser->createToken('Emerald Tours User')->accessToken;
-        return response(['token'=>$token],200);
+        $tokenObj = $mUser->createToken('Emerald Tours User');
+        $token = $tokenObj->accessToken;
+        return response([
+            'token'=>$token,
+            'user'=>$mUser,
+            'token_type'=>'Bearer',
+            'expires_at'=>Carbon::parse($tokenObj->token->expires_at)->toDateTimeString()
+        ],
+        200);
     }
 
     public function cpSignOut(Request $request){

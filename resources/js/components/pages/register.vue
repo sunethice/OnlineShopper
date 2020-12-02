@@ -11,6 +11,24 @@
                             <div class="form-row mb-3">
                                 <div class="col">
                                     <input
+                                        type="text"
+                                        v-model="username"
+                                        class="form-control signinEntry"
+                                        placeholder="Username"
+                                    />
+                                </div>
+                                <div class="col">
+                                    <input
+                                        type="text"
+                                        v-model="address"
+                                        class="form-control signinEntry"
+                                        placeholder="address"
+                                    />
+                                </div>
+                            </div>
+                            <div class="form-row mb-3">
+                                <div class="col">
+                                    <input
                                         type="email"
                                         v-model="email"
                                         class="form-control signinEntry"
@@ -22,27 +40,20 @@
                                 <div class="col">
                                     <input
                                         type="password"
-                                        class="form-control signinEntry"
-                                        placeholder="password"
                                         v-model="password"
+                                        class="form-control signinEntry"
+                                        placeholder="Password"
                                     />
                                 </div>
                             </div>
                             <div class="form-row mb-3">
-                                <div class="col text-left">
+                                <div class="col">
                                     <input
-                                        type="checkbox"
-                                        class="form-control chkKeepSigned"
-                                        v-model="keepSigned"
+                                        type="password"
+                                        v-model="conf_password"
+                                        class="form-control signinEntry"
+                                        placeholder="Confirm Password"
                                     />
-                                    <a href="" class="forgotPass">
-                                        Keep me signed in
-                                    </a>
-                                </div>
-                                <div class="col text-right">
-                                    <a href="" class="forgotPass">
-                                        Forgot password?
-                                    </a>
                                 </div>
                             </div>
                             <div class="form-row mb-3 text-center">
@@ -50,16 +61,16 @@
                                     <button
                                         type="button"
                                         class="btn btn-auth btn-warning btn-signin"
-                                        @click="cpSignin()"
+                                        @click="cpSignup()"
                                     >
-                                        Sign in
+                                        Sign up
                                     </button>
                                 </div>
                             </div>
                             <div class="form-row mb-3">
                                 <div class="col text-center signUpWrap">
-                                    Don't have an account?&nbsp;
-                                    <router-link to="/register" class="signUp">Sign Up</router-link>
+                                    Have an account?&nbsp;
+                                    <router-link to="/auth" class="signUp">Sign In</router-link>
                                 </div>
                             </div>
                         </form>
@@ -74,31 +85,21 @@
     export default {
         data(){
             return {
+                username:"",
                 email:"",
                 password:"",
-                keepSigned:false
+                conf_password:"",
+                address:""
             }
         },
         methods:{
-            cpSignin: function(){
-                let data = {
-                    email:this.email,
-                    password:this.password,
-                    rememberMe:this.keepSigned
-                }
-                this.$store.dispatch('login',data)
-                .then(
-                    () => {console.log('then');this.$router.push('/products');}
-                )
-                .catch((err) => console.log(err));
-            },
             cpSignup: function(){
                 let data = {
-                    username:this.signup.username,
-                    email:this.signup.email,
-                    password:this.signup.password,
-                    password_confirmation:this.signup.conf_password,
-                    address:this.signup.address
+                    username:this.username,
+                    email:this.email,
+                    password:this.password,
+                    password_confirmation:this.conf_password,
+                    address:this.address
                 }
                 this.$store.dispatch('register',data)
                 .then(
