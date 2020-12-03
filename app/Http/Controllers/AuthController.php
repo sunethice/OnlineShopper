@@ -83,8 +83,8 @@ class AuthController extends Controller
     }
 
     public function cpSignOut(Request $request){
+        $request->user()->token()->revoke();
         return response(['message'=>'You have been successfully logged out.'],200);
-        // $request->user()->token()->revoke();
         // return response(['message'=>'You have been successfully logged out.'],200);
     }
 }

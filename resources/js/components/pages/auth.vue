@@ -71,6 +71,7 @@
 </template>
 
 <script type="text/javascript">
+    import { mapGetters } from 'vuex';
     export default {
         data(){
             return {
@@ -78,6 +79,12 @@
                 password:"",
                 keepSigned:false
             }
+        },
+        computed: {
+            ...mapGetters({
+                productList: 'cartProducts',
+                user : 'loggedUser'
+            })
         },
         methods:{
             cpSignin: function(){
@@ -88,32 +95,29 @@
                 }
                 this.$store.dispatch('login',data)
                 .then(
-                    () => this.$router.push('/products')
-                )
-                .catch((err) => console.log(err));
-            },
-            cpSignup: function(){
-                let data = {
-                    username:this.signup.username,
-                    email:this.signup.email,
-                    password:this.signup.password,
-                    password_confirmation:this.signup.conf_password,
-                    address:this.signup.address
-                }
-                this.$store.dispatch('register',data)
-                .then(
-                    () => this.$router.push('/products')
+                    () => {
+                        let data = {
+                            user :this.user.user_id
+                        }
+                        if(this.productList.length > 0){
+                            data.cart = this.productList;
+                            this.$store.dispatch('syncCart',data);
+                        }
+                        else{
+                            this.$store.dispatch('getCart', data);
+                        }
+                        this.$router.push('/products');
+                    }
                 )
                 .catch((err) => console.log(err));
             }
-            //php artisan vendor:publish --tags=passport-components
         }
     }
 </script>
 
 <style scoped>
 .authContainer{
-    max-width: 700px;
+    max-width: 600px;
 }
 
 .authCol{

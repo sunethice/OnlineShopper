@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Product extends Model
 {
     use HasFactory, SoftDeletes;
+    protected $primaryKey = 'product_id';
     protected $guarded = ['product_id'];
 
     protected $hidden = [

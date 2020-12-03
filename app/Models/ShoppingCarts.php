@@ -9,14 +9,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ShoppingCarts extends Model
 {
     use HasFactory, SoftDeletes;
-
-    protected $fillable = [
-        'product_id', 'user_id', 'quantity'
+    protected $primaryKey = 'cart_id';
+    protected $guarded = [
+        'cart_id'
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function product()

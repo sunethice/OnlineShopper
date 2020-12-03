@@ -6,7 +6,7 @@
                 <div class="navbar-nav ml-auto menu-content">
                     <router-link to="home" class="nav-item nav-link px-3 text-white">Home</router-link>
                     <router-link to="products" class="nav-item nav-link px-3 text-white">Products</router-link>
-                    <div v-if="Object.keys(user).length !== 0">
+                    <div v-if="isLoggedIn">
                         <div class="px-3 py-2 text-white" @click="cpLogout">Hi {{ user.username }}</div>
                     </div>
                     <div v-else>
@@ -33,14 +33,19 @@
     export default {
         data(){
             return {
-                user : this.$store.getters.loggedUser
+                user : {}
             }
         },
         methods:{
             cpLogout(){
                 this.$store.dispatch('logout')
                 .then(() => {
-                    this.$router.push('/products');
+                    if(this.$router.history.current.path == "/products"){
+                        this.$router.go()
+                    }
+                    else{
+                        this.$router.push('/products');
+                    }
                 })
                 .catch(err => {
                     console.log(err);
@@ -51,6 +56,10 @@
             itemsInCart(){
                 let cart = this.$store.getters.cartProducts;
                 return cart.reduce((accum, item) => accum + item.quantity, 0)
+            },
+            isLoggedIn(){
+                this.user = this.$store.getters.loggedUser;
+                return (Object.keys(this.user).length !== 0);
             }
         }
     }

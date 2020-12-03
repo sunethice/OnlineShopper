@@ -80,8 +80,15 @@ const mutations = {
     },
     [types.AUTH_LOGOUT](state){
         localStorage.setItem("token","");
+        state.added = [];
         state.token = "";
         state.user = {};
+    },
+    [types.GET_CART](state, data){
+        state.added = data;
+    },
+    [types.SYNC_CART](state){
+
     }
 };
 
@@ -112,7 +119,7 @@ export default new Vuex.Store({
                             user:resp.data.user
                         }
                         // localStorage.setItem('token', token)
-                        axios.defaults.headers.common["Authorization"] = mToken;
+                        axios.defaults.headers.common["Authorization"] = resp.data.token;
 
                         commit(types.AUTH_SUCCESS, mData);
                         resolve(resp);
@@ -134,7 +141,7 @@ export default new Vuex.Store({
                             user:resp.data.user
                         }
                         // localStorage.setItem('token', token)
-                        axios.defaults.headers.common["Authorization"] = mToken;
+                        axios.defaults.headers.common["Authorization"] = "Bearer " + resp.data.token;
                         commit(types.AUTH_SUCCESS, mData);
                         resolve(resp);
                     })
@@ -145,19 +152,35 @@ export default new Vuex.Store({
                     });
             });
         },
-        logout() {
-            return new Promise((resolve, reject) => {
-                this.commit(types.AUTH_LOGOUT);
-                // localStorage.removeItem('token')
-                delete axios.defaults.headers.common["Authorization"];
-                resolve();
-            });
+        logout({commit}) {
+            // return new Promise((resolve, reject) => {
+            //     axios({ url: "api/logout/", method: "POST" })
+            //         .then(resp => {
+                        delete axios.defaults.headers.common["Authorization"];
+                        commit(types.AUTH_LOGOUT);
+            //             resolve();
+            //         })
+            //         .catch(err => {
+            //             commit(types.AUTH_ERROR);
+            //             reject(err);
+            //         });
+            // });
         },
-        getProducts(context) {
-            axios.get("api/products/").then(response => {
+        async getProducts(context) {
+            await axios.get("api/products/").then(response => {
                 context.commit(types.LIST_PRODUCTS, response.data);
             });
-        } // dispatch an action   ->    this.$store.dispatch("getProducts");
+        }, // dispatch an action   ->    this.$store.dispatch("getProducts");
+        async getCart({commit},data){
+            await axios.get("api/getCart/",data).then(response => {
+                commit(types.GET_CART, response.data);
+            });
+        },
+        async syncCart({commit}, data){
+            await axios.post("api/updateCart/",data).then(response => {
+                commit(types.SYNC_CART, response.data);
+            });
+        }
     },
     mutations
 });
