@@ -119,7 +119,7 @@ export default new Vuex.Store({
                             user:resp.data.user
                         }
                         // localStorage.setItem('token', token)
-                        axios.defaults.headers.common["Authorization"] = resp.data.token;
+                        axios.defaults.headers.common["Authorization"] = "Bearer " + resp.data.token;
 
                         commit(types.AUTH_SUCCESS, mData);
                         resolve(resp);

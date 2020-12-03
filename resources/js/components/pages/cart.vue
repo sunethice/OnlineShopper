@@ -74,10 +74,12 @@
 
 <script>
 import { mapGetters } from "vuex";
+import _ from 'lodash';
 export default {
     computed: {
         ...mapGetters({
-            productList: "cartProducts"
+            productList: "cartProducts",
+            user : 'loggedUser'
         }),
         total() {
             return this.productList.reduce((total, p) => {
@@ -95,8 +97,21 @@ export default {
         deleteItem(product) {
             this.$store.commit("DELETE_FROM_CART", product);
         },
+        syncCart: _.debounce((data) => {
+            this.$store.dispatch('syncCart',data);
+        }, 2000),
         checkout() {
             alert("Pay us $" + this.total);
+        }
+    },
+    created: function(){
+        if(this.productList.length > 0){
+            let data = {
+                user : this.user.user_id,
+                cart : this.productList
+            }
+            this.$store.dispatch('syncCart',data);
+            // this.syncCart(data);
         }
     }
 };

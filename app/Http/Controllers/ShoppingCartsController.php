@@ -12,7 +12,7 @@ class ShoppingCartsController extends Controller
 {
     //
     public function cpGetCart(Request $request){
-        return response()->json(ShoppingCarts::select('product_id','user_id','price','quantity')->where('user_id',"=",1)->get(),200);
+        return response()->json(ShoppingCarts::select('product_id','product_name','price','quantity')->where('user_id',"=",1)->get(),200);
     }
 
     public function cpUpdateCart(Request $request){
@@ -27,6 +27,7 @@ class ShoppingCartsController extends Controller
                 if(is_null($cartItem)){
                     $newCartItem = new ShoppingCarts;
                     $newCartItem->product_id = $product["product_id"];
+                    $newCartItem->product_name = $product["name"];
                     $newCartItem->user_id = $request['user'];
                     $newCartItem->price = $product["price"];
                     $newCartItem->quantity = $product["quantity"];
