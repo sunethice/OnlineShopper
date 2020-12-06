@@ -1,42 +1,47 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import home from './components/pages/home';
-import products from './components/pages/products';
-import cart from './components/pages/cart';
-import product from './components/pages/product';
-import auth from './components/pages/auth';
-import register from './components/pages/register';
+import Vue from "vue";
+import VueRouter from "vue-router";
+import home from "./components/pages/home";
+import products from "./components/pages/products";
+import cart from "./components/pages/cart";
+import product from "./components/pages/product";
+import auth from "./components/pages/auth";
+import register from "./components/pages/register";
+import checkoutDetails from "./components/pages/checkoutDetails";
 
 Vue.use(VueRouter);
 
-const routes =[
+const routes = [
     {
-        path:'/home',
+        path: "/home",
         component: home
     },
     {
-        path:'/products',
+        path: "/products",
         component: products
     },
     {
-        path:'/product',
+        path: "/product",
         component: product
     },
     {
-        path:'/auth',
+        path: "/auth",
         component: auth
     },
     {
-        path:'/register',
+        path: "/register",
         component: register
     },
     {
-        path:'/cart',
+        path: "/cart",
         component: cart
+    },
+    {
+        path: "/checkoutDetails",
+        component: checkoutDetails
     }
-]
+];
 
 export default new VueRouter({
-    mode:'history',
+    mode: "history",
     routes
 });

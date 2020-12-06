@@ -1,5 +1,5 @@
 <template>
-    <div class="container no-gutters">
+    <div class="container">
         <div class="cart">
             <h1 class="title text-center pt-5">Your Cart</h1>
             <p v-show="!productList.length" class="text-center">
@@ -17,7 +17,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="p in productList" :key="p.id">
-                        <td>{{ p.name }}</td>
+                        <td>{{ p.product_name }}</td>
                         <td>${{ p.price }}</td>
                         <td>
                             <div class="quantity-toggle">
@@ -74,12 +74,12 @@
 
 <script>
 import { mapGetters } from "vuex";
-import _ from 'lodash';
+import _ from "lodash";
 export default {
     computed: {
         ...mapGetters({
             productList: "cartProducts",
-            user : 'loggedUser'
+            user: "loggedUser"
         }),
         total() {
             return this.productList.reduce((total, p) => {
@@ -90,28 +90,40 @@ export default {
     methods: {
         addItemToCart(product) {
             this.$store.commit("ADD_TO_CART", product);
+            this.syncCart();
         },
         removeItemFromCart(product) {
             this.$store.commit("REMOVE_FROM_CART", product);
+            this.syncCart();
         },
         deleteItem(product) {
             this.$store.commit("DELETE_FROM_CART", product);
+            this.syncCart();
         },
-        syncCart: _.debounce((data) => {
-            this.$store.dispatch('syncCart',data);
+        syncCart: _.debounce(() => {
+            if (this.user.user_id !== undefined) {
+                let data = {
+                    user: this.user.user_id,
+                    cart: this.productList
+                };
+                this.$store.dispatch("syncCart", data);
+            }
         }, 2000),
         checkout() {
-            alert("Pay us $" + this.total);
+            if (this.user.user_id !== undefined) {
+                this.$store.dispatch("checkout", data);
+            } else {
+                this.$router.push("/checkoutDetails");
+            }
         }
     },
-    created: function(){
-        if(this.productList.length > 0){
+    created: function() {
+        if (this.productList.length > 0 && this.user.user_id !== undefined) {
             let data = {
-                user : this.user.user_id,
-                cart : this.productList
-            }
-            this.$store.dispatch('syncCart',data);
-            // this.syncCart(data);
+                user: this.user.user_id,
+                cart: this.productList
+            };
+            this.$store.dispatch("syncCart", data);
         }
     }
 };

@@ -9,14 +9,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Order extends Model
 {
     use SoftDeletes;
-    protected $primaryKey = 'order_id';
+    protected $primaryKey = 'order_entry';
     protected $fillable = [
-        'product_id', 'user_id', 'quantity', 'address'
+        'order_id', 'product_id', 'user_id', 'quantity', 'address'
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function product()

@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ShoppingCartsController;
 use App\Models\ShoppingCarts;
 use Illuminate\Support\Facades\Route;
@@ -18,13 +19,15 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
 Route::post('login', [AuthController::class, 'cpSignIn']);
 Route::post('register', [AuthController::class, 'cpSignUp']);
 Route::get('products', [ProductController::class, 'index']);
 Route::get('/products/{product}', [ProductController::class, 'show']);
+Route::post('checkout', [OrderController::class, 'cpCheckout']);
 
 
-Route::group(['middleware' => 'auth:api'], function(){
+Route::group(['middleware' => 'auth:api'], function () {
     Route::post('logout', [AuthController::class, 'cpSignOut']);
     Route::get('getCart', [ShoppingCartsController::class, 'cpGetCart']);
     Route::post('updateCart', [ShoppingCartsController::class, 'cpUpdateCart']);
@@ -32,4 +35,3 @@ Route::group(['middleware' => 'auth:api'], function(){
     // Route::resource('/orders', 'OrderController');
     // Route::resource('/products', 'ProductController')->except(['index','show']);
 });
-

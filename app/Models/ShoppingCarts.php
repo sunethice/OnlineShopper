@@ -4,11 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ShoppingCarts extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
     protected $primaryKey = 'cart_id';
     protected $guarded = [
         'cart_id'

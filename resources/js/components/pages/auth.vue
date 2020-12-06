@@ -59,7 +59,9 @@
                             <div class="form-row mb-3">
                                 <div class="col text-center signUpWrap">
                                     Don't have an account?&nbsp;
-                                    <router-link to="/register" class="signUp">Sign Up</router-link>
+                                    <router-link to="/register" class="signUp"
+                                        >Sign Up</router-link
+                                    >
                                 </div>
                             </div>
                         </form>
@@ -71,64 +73,62 @@
 </template>
 
 <script type="text/javascript">
-    import { mapGetters } from 'vuex';
-    export default {
-        data(){
-            return {
-                email:"",
-                password:"",
-                keepSigned:false
-            }
-        },
-        computed: {
-            ...mapGetters({
-                productList: 'cartProducts',
-                user : 'loggedUser'
-            })
-        },
-        methods:{
-            cpSignin: function(){
-                let data = {
-                    email:this.email,
-                    password:this.password,
-                    rememberMe:this.keepSigned
-                }
-                this.$store.dispatch('login',data)
-                .then(
-                    () => {
-                        let data = {
-                            user :this.user.user_id
-                        }
-                        if(this.productList.length > 0){
-                            data.cart = this.productList;
-                            this.$store.dispatch('syncCart',data);
-                        }
-                        else{
-                            this.$store.dispatch('getCart', data);
-                        }
-                        this.$router.push('/products');
+import { mapGetters } from "vuex";
+export default {
+    data() {
+        return {
+            email: "",
+            password: "",
+            keepSigned: false
+        };
+    },
+    computed: {
+        ...mapGetters({
+            productList: "cartProducts",
+            user: "loggedUser"
+        })
+    },
+    methods: {
+        cpSignin: function() {
+            let data = {
+                email: this.email,
+                password: this.password,
+                rememberMe: this.keepSigned
+            };
+            this.$store
+                .dispatch("login", data)
+                .then(() => {
+                    let data = {
+                        user: this.user.user_id
+                    };
+                    if (this.productList.length > 0) {
+                        data.cart = this.productList;
+                        this.$store.dispatch("syncCart", data);
+                    } else {
+                        this.$store.dispatch("getCart", data);
                     }
-                )
-                .catch((err) => console.log(err));
-            }
+                    this.$router.push("/products");
+                })
+                .catch(err => console.log(err));
         }
     }
+};
 </script>
 
 <style scoped>
-.authContainer{
+.authContainer {
     max-width: 600px;
 }
 
-.authCol{
+.authCol {
     padding: 95px;
 }
-.AuthHeading{
+.AuthHeading {
     font-size: 20px;
     margin-bottom: 20px;
 }
 
-.chkKeepSigned{
+.chkKeepSigned {
     display: inline;
     width: auto;
     height: auto;
@@ -140,12 +140,12 @@
     left: -26px;
     display: inline-block;
     padding: 6px 12px;
-    background: rgba(0,0,0,0.15);
+    background: rgba(0, 0, 0, 0.15);
     border-radius: 3px 0 0 3px;
     width: 31.88px;
 }
 
-.btn-label-google{
+.btn-label-google {
     width: 34px;
 }
 
@@ -162,18 +162,17 @@
 }
 
 .btn-auth {
-    margin-bottom:10px;
+    margin-bottom: 10px;
     min-width: 140px;
 }
 
-.btn-facebook{
+.btn-facebook {
     color: #fff;
-    background-color:#3b5998;
+    background-color: #3b5998;
 }
 
-.btn-google{
+.btn-google {
     color: #fff;
-    background-color:#d62d20;
+    background-color: #d62d20;
 }
-
 </style>

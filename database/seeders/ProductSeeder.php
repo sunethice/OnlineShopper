@@ -17,7 +17,7 @@ class ProductSeeder extends Seeder
     {
         //
         DB::insert(
-            'insert into products (name,description,color,weight,price,cost,stock,imageurl,created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            'insert into products (product_name,description,color,weight,price,cost,stock,imageurl,created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
             [
                 'Sleeveless Textured Tiered Maxi Dress',
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
@@ -28,9 +28,10 @@ class ProductSeeder extends Seeder
                 25,
                 'Product01.jpg',
                 new DateTime()
-            ]);
+            ]
+        );
         DB::insert(
-            'insert into products (name,description,color,weight,price,cost,stock,imageurl,created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            'insert into products (product_name,description,color,weight,price,cost,stock,imageurl,created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
             [
                 'Short Sleeve Notch Neck Top',
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
@@ -41,9 +42,10 @@ class ProductSeeder extends Seeder
                 25,
                 'Product02.jpg',
                 new DateTime()
-            ]);
+            ]
+        );
         DB::insert(
-            'insert into products (name,description,color,weight,price,cost,stock,imageurl,created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            'insert into products (product_name,description,color,weight,price,cost,stock,imageurl,created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
             [
                 'Sleeveless Textured Tiered Maxi Dress',
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
@@ -54,9 +56,10 @@ class ProductSeeder extends Seeder
                 40,
                 'Product01.jpg',
                 new DateTime()
-            ]);
+            ]
+        );
         DB::insert(
-            'insert into products (name,description,color,weight,price,cost,stock,imageurl,created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            'insert into products (product_name,description,color,weight,price,cost,stock,imageurl,created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
             [
                 'Sleeveless Textured Tiered Maxi Dress',
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
@@ -67,9 +70,10 @@ class ProductSeeder extends Seeder
                 25,
                 'Product02.jpg',
                 new DateTime()
-            ]);
+            ]
+        );
         DB::insert(
-            'insert into products (name,description,color,weight,price,cost,stock,imageurl,created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            'insert into products (product_name,description,color,weight,price,cost,stock,imageurl,created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
             [
                 'Stripe Web Pin Buckle Belt',
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
@@ -80,9 +84,10 @@ class ProductSeeder extends Seeder
                 20,
                 'Product03.jpg',
                 new DateTime()
-            ]);
+            ]
+        );
         DB::insert(
-            'insert into products (name,description,color,weight,price,cost,stock,imageurl,created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            'insert into products (product_name,description,color,weight,price,cost,stock,imageurl,created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
             [
                 'Mens Court Shoes',
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
@@ -93,9 +98,10 @@ class ProductSeeder extends Seeder
                 15,
                 'Product04.jpg',
                 new DateTime()
-            ]);
+            ]
+        );
         DB::insert(
-            'insert into products (name,description,color,weight,price,cost,stock,imageurl,created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            'insert into products (product_name,description,color,weight,price,cost,stock,imageurl,created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
             [
                 'Quilted Romper',
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
@@ -106,9 +112,10 @@ class ProductSeeder extends Seeder
                 18,
                 'Product05.jpg',
                 new DateTime()
-            ]);
+            ]
+        );
         DB::insert(
-            'insert into products (name,description,color,weight,price,cost,stock,imageurl,created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            'insert into products (product_name,description,color,weight,price,cost,stock,imageurl,created_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?)',
             [
                 'Pinafore Dress',
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
@@ -119,7 +126,7 @@ class ProductSeeder extends Seeder
                 25,
                 'Product06.jpg',
                 new DateTime()
-            ]);
-
+            ]
+        );
     }
 }
