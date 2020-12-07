@@ -52,8 +52,7 @@ class OrderController extends Controller
                     $mOrder->save();
                     if (isset($request['user'])) {
                         $mCartEntry = ShoppingCarts::where('product_id', '=', $item['product_id'])
-                            ->where('user_id', '=', $request['user'])->find(1);
-                        $mCartEntry->delete();
+                            ->where('user_id', '=', $request['user'])->delete();
                     }
                 } else {
                     DB::rollback();

@@ -6,6 +6,12 @@
                 <i>Your cart is empty!</i>
                 <router-link to="/products">Go shopping</router-link>
             </p>
+            <transition name="fade" v-on:enter="enter">
+                <p v-if="show">
+                    Order Placed successfully
+                </p>
+            </transition>
+
             <table class="table is-striped" v-show="productList.length">
                 <thead>
                     <tr>
@@ -76,6 +82,11 @@
 import { mapGetters } from "vuex";
 import _ from "lodash";
 export default {
+    data() {
+        return {
+            show: false
+        };
+    },
     computed: {
         ...mapGetters({
             productList: "cartProducts",
@@ -115,10 +126,18 @@ export default {
                     user: this.user.user_id,
                     cart: this.productList
                 };
-                this.$store.dispatch("checkout", data);
+                this.$store.dispatch("checkout", data).then(resp => {
+                    this.show = !this.show;
+                });
             } else {
                 this.$router.push("/checkoutDetails");
             }
+        },
+        enter: function(el, done) {
+            var that = this;
+            setTimeout(function() {
+                that.show = false;
+            }, 3000);
         }
     },
     created: function() {
@@ -136,5 +155,14 @@ export default {
 <style scoped>
 .quantityInp {
     max-width: 50px;
+}
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 1s;
+}
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
 }
 </style>

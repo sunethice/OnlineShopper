@@ -88,6 +88,8 @@ export default {
         },
         isLoggedIn() {
             this.user = this.$store.getters.loggedUser;
+            axios.defaults.headers.common["Authorization"] =
+                "Bearer " + this.$store.getters.accessToken;
             return Object.keys(this.user).length !== 0;
         }
     }
