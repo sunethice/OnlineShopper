@@ -12,11 +12,8 @@ class Product extends Model
     protected $primaryKey = 'product_id';
     protected $guarded = ['product_id'];
 
-    protected $hidden = [
-        'weight', 'cost', 'stock'
-    ];
-
-    public function orders(){
+    public function orders()
+    {
         return $this->hasMany(Order::class);
     }
 }

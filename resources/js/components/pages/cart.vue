@@ -111,6 +111,10 @@ export default {
         }, 2000),
         checkout() {
             if (this.user.user_id !== undefined) {
+                let data = {
+                    user: this.user.user_id,
+                    cart: this.productList
+                };
                 this.$store.dispatch("checkout", data);
             } else {
                 this.$router.push("/checkoutDetails");

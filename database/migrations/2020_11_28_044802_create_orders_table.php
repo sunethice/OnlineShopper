@@ -18,8 +18,10 @@ class CreateOrdersTable extends Migration
             $table->string('order_id');
             $table->unsignedInteger('product_id');
             $table->bigInteger('user_id')->nullable();
-            $table->unsignedInteger('quantity')->default(1);
+            $table->string('user_name')->nullable();
+            $table->string('email')->nullable();
             $table->string('address')->nullable();
+            $table->unsignedInteger('quantity')->default(1);
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('product_id')->references('product_id')->on('products')->onDelete('cascade');

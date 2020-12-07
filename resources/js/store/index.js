@@ -92,7 +92,10 @@ const mutations = {
         state.added = data;
         localStorage.setItem("added", data);
     },
-    [types.SYNC_CART](state) {}
+    [types.SYNC_CART](state) {},
+    [types.CHECKOUT](state) {
+        state.added = [];
+    }
 };
 
 export default new Vuex.Store({
@@ -198,9 +201,17 @@ export default new Vuex.Store({
                 commit(types.SYNC_CART, response.data);
             });
         },
-        async syncCart({ commit }, data) {
-            await axios.post("api/checkout/", data).then(response => {
-                commit(types.SYNC_CART, response.data);
+        checkout({ commit }, data) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .post("api/checkout/", data)
+                    .then(resp => {
+                        commit(types.CHECKOUT, resp.data);
+                        resolve(resp);
+                    })
+                    .catch(err => {
+                        reject(err);
+                    });
             });
         }
     },
